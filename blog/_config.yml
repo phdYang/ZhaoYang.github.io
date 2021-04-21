@@ -105,3 +105,9 @@ deploy:
   type: git
   repo: https://github.com/phdYang/ZhaoYang.github.io.git
   branch: main
+
+#search
+search:
+  path: search.xml
+  field: post
+  content: true
