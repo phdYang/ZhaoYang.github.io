@@ -1,5 +1,6 @@
 ---
-title: javaInit
+abbrlink: javaInit
+title: Java常见核心命题
 date: 2021-06-27 14:22:37
 cover: https://i.loli.net/2021/06/27/K5JUjf3ylB1dILD.jpg
 tags:

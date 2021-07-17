@@ -1,5 +1,6 @@
 ---
-title: myHashMap
+abbrlink: myHashMap
+title: 徒手撸轮子系列之HashMap——我们撸一个HashMap怎么样
 date: 2021-04-27 23:17:19
 cover: https://i.loli.net/2021/04/27/NVpejmMIXl2cq8w.jpg
 tags:
