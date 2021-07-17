@@ -13,7 +13,8 @@ tags:
 
 ## 本章思维导图
 
-{% asset_img image-20210627142649358.png 思维导图 %}
+{% asset_img javaInit/img1.png 思维导图 %}
+![思维导图](javaInit/img1.png)
 
 ## 基础概念
 
@@ -75,5 +76,6 @@ tags:
 
 ## HashMap
 
-较为详细的核心原理请参考[徒手撸轮子系列之HashMap——我们撸一个HashMap怎么样](https://yzhao.top/2021/04/27/myHashMap/)
+较为详细的核心原理请参考[徒手撸轮子系列之HashMap——我们撸一个HashMap怎么样](https://yzhao.top/posts/myHashMap.html)
+
 

@@ -47,5 +47,5 @@ tags:
 
 那么，就开始把。
 
-2021年4月26日总第一期：[<<徒手撸轮子系列之HashMap——我们撸一个HashMap怎么样>>](https://yzhao.top/2021/04/27/myHashMap/)
+2021年4月26日总第一期：[<<徒手撸轮子系列之HashMap——我们撸一个HashMap怎么样>>](https://yzhao.top/posts/myHashMap.html)
 
