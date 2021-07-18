@@ -56,8 +56,7 @@ tags:
    * 基本类型缓存池，如果对应包装类型的数值范围在缓存池内，直接使用缓存池中的对象
 
      * Code Demo: 
-     
-     * ```java
+     ```java
        Integer a = 123; // Integer.valueOf(123)
        Integer b = 123;
        System.out.println(a == b); // true
@@ -67,8 +66,9 @@ tags:
        Integer a = 129;
        Integer b = 129;
        System.out.println(a == b); // false
-       ```
-       Integer/short的范围为-128～127
+     ```
+     
+     * Integer/short的范围为-128～127
      
    * String类型缓存池，保存所以String字面量，同时还可以inter()进行添加
 
@@ -100,11 +100,8 @@ tags:
       * 如果在循环过程中发现有相同的key的时候，证明是覆盖节点，此时该节点为e，结束循环；
     * 最后，对相同的key，如果运行覆盖value，则此时进行value值覆盖，并返回oldvalue
   * 若当前HashMap的```size>threshold```（首次扩容=0.75*16=12）时，扩容
-
   具体新增流程为：
-
   ![HashMap之put方法](javaInit/img2.png)
-
 * ```Node<K, V>[] resize()``` 扩容
   * 记录现有的capacity以及现有的Threshold
   * 不可超过最大MAXMUM_CAPACITY且扩容为现在的2倍
@@ -113,50 +110,36 @@ tags:
   * 若链表不为1，进行**链表复制**，JDK1.8优化：
     * 若e.hash & oldCap == 0，还是用原索引，放在原来的桶里
     * 若e.hash & oldCap == 1，放在新的桶里，新的索引=原索引+oldCap
-  * **优化点**：在进行链表复制的时候，通过e.hash & oldCap 的结果来判断新的索引地址
-  
+  * **优化点**：在进行链表复制的时候，通过e.hash & oldCap 的结果来判断新的索引地址  
 * ```V get(Object key)``` 查找
-
   * 计算key的hash值，以及桶下标
   * 若链表的第一个节点的key就是目标key，则返回该节点(e.val)
   * 否则，进行循环遍历判断key是否是目标key
   * 若某一个节点位红黑树节点，则使用红黑树的方式遍历
-
 * **并发场景梳理**
-
   * HashMap是非线程安全的，不保证线程获取数据的一致性
   * 链表成环问题（JDK1.8已经修复）:
     * 扩容流程：```next=e.next -> tab[i]=e -> e = next```
-    * **风险点**：这里采用的是头插法插入节点，会改变链表原来节点的顺序；
-
-  ![JDK1.7链表成环核心原因分析图示](javaInit\img3.png)
+    * **风险点**：这里采用的是头插法插入节点，会改变链表原来节点的顺序
+![JDK1.7链表成环核心原因分析图示](javaInit/img3.png)
 
 注意：HashMap依旧是线程不安全的，所产生的线程问题无非就是同一份数据被不同的线程所改变造成的（**即原子性被打断**）。
 
 
-
 ## 并发
-
 ### ConcurrentHashMap
-
 **核心**：CAS + synchronized
-
 Node<K,V> table采用了**volatile**来修饰
-
 hash函数的小改进：(h^(h>>>16))&HASH_BITS HASH_BITS主要是为了消除符号位置，即MAX_VALUE;因为在ConcurrentHashMap中的hash需要表示正在转移(-1)、转移成树(-2)以及保留值(-3)
-
 ```V put(K key, V value) ```
-
 - 数组为空，初始化；
 - 若当前槽点没有值，CAS创建节点，失败自旋（for循环）
 - 若槽点有值，判断当前槽点是不是MOVED节点，如果是，会参与扩容
 - 若槽点有值且扩容完成，锁定当前槽，链表尾插
 - 线程安全的手段：
-
-- - 数组初始化通过自旋+CAS+double check保证初始化成功 initTable()
+  - 数组初始化通过自旋+CAS+double check保证初始化成功 initTable()
   - 新增节点时：
-
-- - - 自旋确保一定可以成功；
+    - 自旋确保一定可以成功；
     - 槽点为空时，通过CAS新增，如果失败，则自旋；
     - 槽点有值，锁槽点
     - 红黑树旋转时，锁root
@@ -172,7 +155,7 @@ hash函数的小改进：(h^(h>>>16))&HASH_BITS HASH_BITS主要是为了消除�
 - 原理：无锁 --> 偏向锁 --> 轻量级锁 --> 重量级锁
 - 使用方式：
 
-- - **类锁**：类共有的，不同的实例也会被锁住；除此之外，还有String的字面量赋值以及基本数据类型的包装类型在缓存池范围内的情况下
+  - **类锁**：类共有的，不同的实例也会被锁住；除此之外，还有String的字面量赋值以及基本数据类型的包装类型在缓存池范围内的情况下
   - **对象锁**：实例共有，同一个实例才会被锁住
 
 ### 线程状态
